@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Usuario: {{ usuario.id }}{% endblock title %}
+{% block subtitle %}Usuario: {{ usuario.first_name}}{{usuario.last_name}}{% endblock %}
+
+{% block content %}	
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">ID</th>
+				<th class="text-center">nome</th>
+				<th class="text-center">Setor</th>
+				<th class="text-center">login</th>
+				<th class="text-center">funcao</th>
+				<th class="text-center">administrador</th>
+				<th class="text-center">email</th>				
+				<!--<th class="text-center">Grupo</th>
+				<th class="text-center">NCM</th>-->
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="text-center">{{usuario.id}}</td>
+				<td class="text-center">"{{usuario.first_name}}  {{usuario.last_name}}</td>
+				<td class="text-center">{{usuario.setor_usu}}</td>
+				<td class="text-center">{{usuario.username}}</td>
+				<td class="text-center">{{usuario.funcao_usu}}</td>
+				<td class="text-center">{{usuario.is_superuser}}</td>
+				<td class="text-center">{{usuario.email}}</td>
+				<!--<td class="text-center">{{ object.Codigo_PRO_SETPRO.Grupo_PRO }}</td>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.NCM_PRO }}</td>-->
+			</tr>
+		</tbody>
+	</table>
+		<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">Observações</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="text-center"><h6>Sem observações</h6></td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">Foto de Usuario</th>
+				<th class="text-center">Foto frontal </th>
+				<th class="text-center">Foto lateral </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				{% if usuario.foto_usu.url %}
+				<td class="text-center"><img src="{{ usuario.foto_usu.url }}" class="img-fluid" alt="{{usuario.first_name}}  {{usuario.last_name}} " id = "img-tam"  style="height:150px;
+          width: 150px; text-align:left;"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+				{% if usuario.reconhece_1 %}
+				<td class="text-center"><img src="{{ usuario.reconhece_1.url }}" class="img-fluid" id = "img-tam"  style="height:200px;
+          width: 200px;"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+				{% if usuario.reconhece_2%}
+				<td class="text-center"><img src="{{ usuario.reconhece_2.url }}" class="img-fluid" id = "img-tam"  style="height:200px;
+          width: 200px;"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+			</tr>
+		</tbody>
+	</table>
+	<div class="row pull-right">
+	  <div class="col-md-6">
+      	<form action="#" method="POST">
+      	{% csrf_token %}
+	      <button type="submit" class="btn btn-warning" value="Alterar">Alterar</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+ 	    <form action="#" method="POST">
+ 	    {% csrf_token %}
+		  <button type="submit" class="btn btn-danger" value="Excluir" onclick="return confirm('Deseja realmente excluir?');">Excluir</button>
+		</form>	        	
+      </div>
+	</div>
+
+<a href="{% url 'core:lista_produto' %}"><span class="glyphicon glyphicon-chevron-left">Voltar</span></a>
+{% endblock content %}

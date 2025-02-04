@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Produto: {{ object.Codigo_PRO_SETPRO.Descricao_PRO }}{% endblock title %}
+{% block subtitle %}Produto: {{ object.Codigo_PRO_SETPRO.Descricao_PRO }}{% endblock %}
+
+{% block content %}	
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">ID</th>
+				<th class="text-center">Descrição</th>
+				<th class="text-center">Setor</th>
+				<th class="text-center">Preço Venda</th>
+				<th class="text-center">Preço Promoção</th>
+				<th class="text-center">Estoque Venda</th>
+				<th class="text-center">Estoque Reserva</th>
+				<th class="text-center">Unidade</th>
+				<th class="text-center">Grupo</th>
+				<th class="text-center">NCM</th>
+				<th class="text-center">Sigla Fab</th>
+				<th class="text-center">Tributo</th>
+				<th class="text-center">Taxa</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.Produto_PRO }}</td>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.Descricao_PRO }}</td>
+				<td class="text-center">{{ object.Codigo_SET_SETPRO }}</td>
+				<td class="text-center">{{ object.Preco_Venda_SETPRO }}</td>
+				<td class="text-center">{{ object.Preco_Promocao_SETPRO }}</td>
+				<td class="text-center">{{ object.Quant_C_Estoque_SETPRO }}</td>
+				<td class="text-center">{{ object.Quant_R_Estoque_SETPRO }}</td>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.Unidade_PRO }}</td>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.Grupo_PRO }}</td>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.NCM_PRO }}</td>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.Sigla_Fab_PRO }}</td>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.Trib_PRO }}</td>
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.Taxa_PRO }}</td>
+			</tr>
+		</tbody>
+	</table>
+		<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">Observações</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				{% if object.Codigo_PRO_SETPRO.Obs_PRO %}
+				<td class="text-center">{{ object.Codigo_PRO_SETPRO.Obs_PRO }}</td>
+				{% else %}
+				<td class="text-center"><h6>Sem observações</h6></td>
+				{% endif %}
+			</tr>
+		</tbody>
+	</table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">Foto</th>
+				<th class="text-center">Foto 1</th>
+				<th class="text-center">Foto 2</th>
+				<th class="text-center">Foto 3</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				{% if object.Codigo_PRO_SETPRO.Foto_PRO %}
+				<td class="text-center"><img src="{{ object.Codigo_PRO_SETPRO.Foto_PRO.thumb.url }}" class="img-fluid" alt="{{ object.Codigo_PRO_SETPRO.Descricao_PRO }}"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+				{% if object.Codigo_PRO_SETPRO.Foto1_PRO %}
+				<td class="text-center"><img src="{{ object.Codigo_PRO_SETPRO.Foto1_PRO.thumb.url }}" class="img-fluid" alt="{{ object.Codigo_PRO_SETPRO.Descricao_PRO }}"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+				{% if object.Codigo_PRO_SETPRO.Foto2_PRO %}
+				<td class="text-center"><img src="{{ object.Codigo_PRO_SETPRO.Foto2_PRO.thumb.url }}" class="img-fluid" alt="{{ object.Codigo_PRO_SETPRO.Descricao_PRO }}"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+				{% if object.Codigo_PRO_SETPRO.Foto3_PRO %}
+				<td class="text-center"><img src="{{ object.Codigo_PRO_SETPRO.Foto3_PRO.thumb.url }}" class="img-fluid" alt="{{ object.Codigo_PRO_SETPRO.Descricao_PRO }}"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+			</tr>
+		</tbody>
+	</table>
+		<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">Foto 4</th>
+				<th class="text-center">Foto 5</th>
+				<th class="text-center">Foto 6</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				{% if object.Codigo_PRO_SETPRO.Foto4_PRO %}
+				<td class="text-center"><img src="{{ object.Codigo_PRO_SETPRO.Foto4_PRO.thumb.url }}" class="img-fluid" alt="{{ object.Codigo_PRO_SETPRO.Descricao_PRO }}"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+				{% if object.Codigo_PRO_SETPRO.Foto5_PRO %}
+				<td class="text-center"><img src="{{ object.Codigo_PRO_SETPRO.Foto5_PRO.thumb.url }}" class="img-fluid" alt="{{ object.Codigo_PRO_SETPRO.Descricao_PRO }}"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+				{% if object.Codigo_PRO_SETPRO.Foto6_PRO %}
+				<td class="text-center"><img src="{{ object.Codigo_PRO_SETPRO.Foto6_PRO.thumb.url }}" class="img-fluid" alt="{{ object.Codigo_PRO_SETPRO.Descricao_PRO }}"></td>
+				{% else %}
+				<td class="text-center"><h6>Foto indisponível</h6></td>
+				{% endif %}
+			</tr>
+		</tbody>
+	</table>
+	<div class="row pull-right">
+	  <div class="col-md-6">
+      	<form action="{% url 'core:altera_produto' 1 %}" method="POST">
+      	{% csrf_token %}
+	      <button type="submit" class="btn btn-warning" value="Alterar">Alterar</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+ 	    <form action="{% url 'core:deleta_produto' 1 %}" method="POST">
+ 	    {% csrf_token %}
+		  <button type="submit" class="btn btn-danger" value="Excluir" onclick="return confirm('Deseja realmente excluir?');">Excluir</button>
+		</form>	        	
+      </div>
+	</div>
+
+<a href="{% url 'core:lista_produto' %}"><span class="glyphicon glyphicon-chevron-left">Voltar</span></a>
+{% endblock content %}

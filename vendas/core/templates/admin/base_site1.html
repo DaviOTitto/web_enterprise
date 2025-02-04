@@ -1,0 +1,32 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+
+
+{% block branding %}
+
+<div class="container-cabec">
+    <div class="row-cabec">
+      <div class="col" id="img-cliente">
+     <!--   <img src="{{ request.user.user_profile.Setor_USU.Foto_Cabec_Tela_SET.cabec.url }}">-->
+      </div>
+      <div class="col" id="subtitulo-pagina">
+        <h1>{% block subtitle %}ADMIN: {{ cl.opts.verbose_name_plural|capfirst }}{% endblock subtitle %}</h1>
+      </div>
+      <div class="col" id="img-cecotein">
+        <p id="numero-tela" title="Código do sistema - Número da tela">{% block numeroPagina %}{% endblock %}</p>
+        <img src="{% static 'img/foto_cecotein.jpg' %}"alt ="Web Enterprise" width="80px">
+      </div>
+    </div>
+ </div>
+ <!--search form -->
+  <h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+    <img src="{% static 'static/img/foto_cecotein.png' %}"
+    alt ="Web Enterprise" width="50px">
+    </a>
+  </h1>
+
+  
+{% endblock %}
+

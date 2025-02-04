@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Setor: {{ object.Nome_SET }}{% endblock title %}
+{% block subtitle %}Setor: {{ object.Nome_SET }}{% endblock %}
+
+{% block content %}
+
+<div>
+	<h4>Vendas do Setor: <a href="{{ object.get_sale_setor_url }}" title="Clique para visualizar as vendas realizadas no setor">{{ object.get_sales_count }}</a></h4>
+	<br>
+	<table class="table">
+  		<thead>
+  			<tr>
+  				<th class="text-center">ID</th>
+  				<th class="text-center">Funcionário</th>
+  				<th class="text-center">Função</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  			{% for usuario in Usuario %}
+	      	<tr>
+	        	<td class="text-center">{{ usuario.Nome_USU }}</td>	        
+	        	<td class="text-center">{{ object.get_usuario_setor }}</td>	        
+	        	<td class="text-center"><a href="{{ object.get_sale_setor_url }}">{{ object.get_sales_count }}</a></td>
+	      	</tr>
+			{% empty %}
+				<p>Sem usuários na lista.</p>
+			{% endfor %}
+        </tbody>
+    </table>
+<a href="{% url 'core:setor_list' %}"><span class="glyphicon glyphicon-chevron-left" title="Clique para voltar para lista de setores">Voltar</span></a>
+</div>
+
+{% endblock content %}

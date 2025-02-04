@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de tipos de  produtos{% endblock title %}
+{% block subtitle %}Lista de tipos de Produtos{% endblock %}
+
+{% block content %}
+   <!-- criado um html para lista dos tipos de produtows   Davi Oliveira Tito 11/05/2022-->
+    <form class="navbar-form navbar-right" action="." method="get">
+        <!-- add -->
+        <a href="{% url 'core:novo_tipPRO' %}">
+            <button id="novo_tipPRO" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span> Adicionar
+            </button>
+        </a>
+        <!-- search form -->
+        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control">
+        <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+{% if object_list %}
+		<div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">ID</th>
+						<th class="text-center">chave</th>
+						<th class="text-center">descricao</th>
+						<th class="text-center">desconto_max</th>
+						<th class="text-center">Tramsmit</th>
+						<th class="text-center">cod de user </th>
+						<th class="text-center">data de alt</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for produto in object_list %}
+					<td class="text-center">{{ TipoPRO.id_tipopro }}</td>
+					<td class="text-center"><a href="{{ produto.get_product_url }}">{{ TipoPRO.key_tip}}</a></td>
+					<td class="text-center">{{ TipoPRO.desc_tip }}</td>
+					<td class="text-center">{{ TipoPRO.desconto_max }}</td>
+					<td class="text-center">{{ TipoPRO.transmitido }}</td>
+					<td class="text-center">{{ TipoPRO.cod_usu_alt}}</td>
+					<td class="text-center">{{ TipoPRO.data_mod }}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% else %}
+  <p class="alert alert-warning">Sem itens na lista.</p>
+{% endif %}
+
+<hr>
+<div>
+<h3>{{ object_list|length }} tipoPRO{{ object_list|length|pluralize }}</h3>
+</div>
+
+{% endblock content %}

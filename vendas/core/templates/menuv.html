@@ -1,0 +1,159 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'core:home' %}" title="Clique para ir para a página inicial">WebEnterprise</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+<!-- FERRAMENTAS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Ferramentas <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header">Grade</li>
+            <li><a href="{% url 'core:listar_tabelas' 'estado' %}">Estados</a></li>
+            <li class="dropdown-header">Admin</li>
+            <li><a href="http://127.0.0.1:8000/admin">Grade</a></li>
+            <li class="divider"></li>   
+            <li class="dropdown-header">Cadastro de Produtos</li>
+            <li><a href="{% url 'core:novo_produto' %}">Produto</a></li>
+            <li class="divider"></li>               
+            <li class="dropdown-header">Cadastro de Pessoas e empresas</li>
+            <li><a href="{% url 'core:cadastros_add' %}">Cliente</a></li>
+            <li><a href="#">Usuário</a></li>
+          </ul>
+        </li>
+<!-- FERRAMENTAS FIM -->
+        <li><a href="{% url 'core:lista_produto' %}"><span class="glyphicon glyphicon-tags"></span> Produtos</a></li>
+        <li><a href="{% url 'core:listar_vendas' %}"><span class="glyphicon glyphicon-shopping-cart"></span> Vendas</a></li>
+        <li><a href="{% url 'core:customer_list' %}"><span class="glyphicon glyphicon-user"></span> Clientes</a></li>
+        <li><a href="{% url 'core:setor_list' %}"><span class="glyphicon glyphicon-briefcase"></span> Setores</a></li>
+        {% if request.user.is_authenticated %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Cadastro <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">Cadastro de Vendas</li>
+              <li><a href="{% url 'core:nova_venda' %}">Venda</a></li>
+              <li class="divider"></li>   
+              <li class="dropdown-header">Cadastro de Produtos</li>
+              <li><a href="{% url 'core:novo_produto' %}">Produto</a></li>
+              <li class="divider"></li>               
+              <li class="dropdown-header">Cadastro de Pessoas</li>
+              <li><a href="{% url 'core:cadastros_add' %}">Cliente</a></li>
+              <li><a href="#">Usuário</a></li>
+              <!-- <li><a href="#">Contato</a></li>
+              <li><a href="#">Fornecedor</a></li>
+              <li><a href="#">Funcionário</a></li> -->
+            </ul>
+          </li>
+        {% endif %}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}" title="Clique para ir para área do usuário">Olá, {{ request.user.first_name }}!</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-exclamation-sign"></span> Login</a></li>
+        {% endif %}
+      </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'core:home' %}" title="Clique para ir para a página inicial">WebEnterprise</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+<!-- ARQUIVOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Arquivos <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <!-- submenu -->
+                    <li li class="dropdown-submenu pull-left">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">TRANSPORTE RODO LOTAÇÃO <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li class="dropdown dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Transporte Especial <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a href="servicos.php">Caminhões Equipados com Guindautos</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+            <!-- submenu fim -->
+            <li><a href="#">Cadastro</a></li>
+            <li><a href="#">Contratos</a></li>
+            <li><a href="#">Estoque</a></li>
+            <li><a href="#">Faturamento</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Orçamento</a></li>
+            <li><a href="#">Varejo</a></li>
+            <li><a href="#">Vendas</a></li>
+          </ul>
+        </li>
+<!-- FERRAMENTAS FIM -->
+<!-- MOVIMENTOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimentos <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+
+          </ul>
+        </li>
+<!-- MOVIMENTOS FIM -->
+<!-- CONSULTAS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          </ul>
+        </li>
+<!-- CONSULTAS FIM -->
+<!-- RELATORIOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+
+          </ul>
+        </li>
+<!-- RELATORIOS FIM -->
+<!-- FERRAMENTAS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ferramentas <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+
+          </ul>
+        </li>
+<!-- FERRAMENTAS FIM -->
+<!-- AJUDA INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ajuda <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'core:listar_tabelas' 'estado' %}">Sobre o sistema</a></li>
+            <li><a href="http://127.0.0.1:8000/admin">Home Page</a></li>
+          </ul>
+        </li>
+<!-- AJUDA FIM -->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}" title="Clique para ir para área do usuário">Olá, {{ request.user.first_name }}!</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-exclamation-sign"></span> Login</a></li>
+        {% endif %}
+      </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>

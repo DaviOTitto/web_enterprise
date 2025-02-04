@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de produtos{% endblock title %}
+{% block subtitle %}Lista de Produtos{% endblock %}
+
+{% block content %}
+    <form class="navbar-form navbar-right" action="." method="get">
+        <!-- add -->
+        <a href="{% url 'core:novo_produto' %}">
+            <button id="novo_produto" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span> Adicionar
+            </button>
+        </a>
+        <!-- search form -->
+        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control">
+        <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+{% if object_list %}
+		<div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">ID</th>
+						<th class="text-center">Descrição</th>
+						<th class="text-center">Unidade</th>
+						<th class="text-center">Grupo</th>
+						<th class="text-center">Sigla Fab.</th>
+						<th class="text-center">valor</th>
+						<th class="text-center">Tributo</th>
+						<th class="text-center">Taxa</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for produto in object_list %}
+					<td class="text-center" ><a href="{{ setorpro.cod_pro_set.produto_pro.get_product_url }}">{{ produto.produto_pro }}</td>
+					<td class="text-center"><a href="{{ setorpro.cod_pro_set.produto_pro.get_product_url }}">{{ produto.descricao_pro }}</a></td>
+					<td class="text-center">{{ produto..qtd_atual  }}</td>
+					<td class="text-center">{{ produto.grupo_pro }}</td>
+					<td class="text-center">{{ produto.sigla_fab_pro }}</td>
+					<td class="text-center">{{ produto.get_valor}}</td>
+					<td class="text-center">{{ produto.trib_pro }}</td>
+					<td class="text-center">{{ produto.taxa_pro }}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% else %}
+  <p class="alert alert-warning">Sem itens na lista.</p>
+{% endif %}
+
+<hr>
+<div>
+<h3>{{ object_list|length }} setorpro{{ object_list|length|pluralize }}</h3>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Cadastrar tipoProduto{% endblock title %}
+{% block subtitle %}Novo tipo de produto {% endblock %}
+
+{# Adding select2 css #}
+{% block css %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{# Adding select2 js #}
+{% block js %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+{% endblock %}
+
+{% block content %}
+  <br>
+  <div class="row align-items-center">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-md-6">
+      <form action="" method="POST">
+        {% csrf_token %}
+        {{ forms|bootstrap }}
+        {{ formset.management_form|bootstrap }}
+        {% for form in formset %}
+        {{ formset.empty_form|bootstrap }}
+        {% endfor %}
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-sm-10">
+    </div>
+    <div class="col-md-1">
+      <a href="{% url 'core:lista_tipopro' %}" class="btn btn-danger pull-right"><i class="fa fa-times"></i> Cancelar</a>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-primary pull-right" value="Save"><i class="fa fa-floppy-o"></i> Salvar</button>
+    </div>
+  </div>
+  </form>
+{% endblock %}

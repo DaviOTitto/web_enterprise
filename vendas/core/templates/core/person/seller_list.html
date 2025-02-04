@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de vendedores{% endblock title %}
+{% block subtitle %}Lista de Vendedores{% endblock %}
+
+{% block content %}
+    <form class="navbar-form navbar-right" action="." method="get">
+        <!-- search form -->
+        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control">
+        <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+{% if object_list %}
+		<div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="text-center">Código</th>
+						<th class="text-center">Nome</th>
+						<th class="text-center">Setor</th>
+						<th class="text-center">Senha</th>
+						<th class="text-center">Vendas</th>
+				</thead>
+				<tbody>
+				{% for usuario in object_list %}
+					<tr>
+						<td class="text-center">{{ usuario.cod_usu }}</td>
+						<td class="text-center"><a href="{{ usuario.get_usuario_url }}">{{ usuario.nome_usu }}</a></td>
+						<td class="text-center">{{ usuario.setor_usu }}</td>
+						<td class="text-center">{{ usuario.senha_usu }}</td>
+						<td class="text-center"><a href="{{ usuario.get_sale_usuario_url }}">{{ usuario.get_sales_count }}</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% else %}
+  <p class="alert alert-warning">Sem itens na lista.</p>
+{% endif %}
+
+<hr>
+<div>
+<h3>{{ object_list|length }} Usuario{{ object_list|length|pluralize:"s" }}</h3>
+<h4><b>Total:</b> {{ page_obj.paginator.count }} Usuario{{ page_obj.paginator.count|pluralize:"s" }}</h4>
+</div>
+
+{% if object_list %}
+  <!-- pagination -->
+  {% include "_pagination.html" %}
+{% endif %}
+
+{% endblock content %}

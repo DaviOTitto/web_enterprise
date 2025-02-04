@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}ERRO DE CAMERA{% endblock %}
+{% block subtitle %}ERRO DE CAMERA{% endblock %}
+
+{% block content %}
+	<div class="row align-items-center">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-6">
+			<h3>ERRROR<h3>
+			<h5>houve alguma falha com a camera , tente dar permissão para o navegador usar a camera, em caso do erro persistir , fale com desenvolvedor para solucionarmos seu promlema. <a href="{% url 'dashboard' %}" title="Clique para ser redirecionado a página de login">voltar</a>.</h5>
+			<footer>atenciosamente Equipe Cecotein</footer>
+		</div>
+		
+	</div>
+{% endblock %}

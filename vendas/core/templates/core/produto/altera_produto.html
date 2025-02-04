@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Alterar produto{% endblock title %}
+{% block subtitle %}Alterar produto{% endblock %}
+
+{# Adding select2 css #}
+{% block css %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{# Adding select2 js #}
+{% block js %}
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>-->
+{% endblock %}
+
+{% block content %}
+
+  <div class="row">
+      <div class="col-xs-10 col-md-12">
+          <form action="" method="POST">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-xs-8 col-md-5">
+                      {{ forms|bootstrap }}
+                      {{ formset.management_form|bootstrap }}
+                  </div>
+              </div>
+              <!-- Adiciona os produtos no formulário de seleção -->
+              <legend class="lead">Produtos</legend> 
+              <div id="order" class="form-inline">
+                  {% for item_order_form in formset %}
+                  <div id="item-{{ forloop.counter0 }}" class="form-group">
+                      {{ item_order_form|bootstrap }}
+                  </div>
+                  {% endfor %}
+              </div>
+              <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i> Adicionar Item</a>
+              <div class="form-inline buttons">
+                  <a href="{% url 'core:sale_list' %}" class="btn btn-danger pull-right">
+                      <i class="fa fa-times"></i>
+                      Cancelar
+                  </a>
+                  <button class="btn btn-primary pull-right" value="Save">
+                      <i class="fa fa-floppy-o"></i>
+                      Salvar
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $("#add-item").click(function (ev) {
+        ev.preventDefault();
+        var count = $('#order').children().length;
+        var tmplMarkup = $("#item-order").html();
+        var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+        $("div#order").append(compiledTmpl);
+
+        // update form count
+        $('#id_product-TOTAL_FORMS').attr('value', count + 1);
+
+        // some animate to scroll to view our new form
+        $('html, body').animate({
+          scrollTop: $("#add-item").position().top - 200
+        }, 800);
+        {# Initialize select2 on new select field #}
+        $('#id_product-' + (count) + '-product').select2();
+      });
+      {# Initialize select2 on all select tags #}
+      $('select').select2();
+    });
+  </script>
+  <script type="text/html" id="item-order">
+    <div id="item-__prefix__" class="form-group" style="margin-top: 10px">
+      {{ formset.empty_form|bootstrap }}
+    </div>
+  </script>
+{% endblock %}

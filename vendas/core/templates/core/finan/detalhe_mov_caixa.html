@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}movimento de caixa: {{mov_caixa.id_mov_caixa}}{% endblock title %}
+{% block subtitle %}movimento de caixa: {{mov_caixa.id_mov_caixa}}{% endblock %}
+{% block numeroPagina %}0180-000{% endblock numeroPagina %}
+
+{% block content %}
+	<!--alteração e criação dia 06/08/2022-->
+	<h2>
+		<!-- alteração, nome_cad para codigo cad
+			Davi Oliveira Tito 02/05/2022-->
+		<spam class="pull-right"><b>usuario:</b> </spam>	
+	</h2>
+	<p><b>Data:{{mov_caixa.data_mov}}</b></p>
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center">id</th>
+					<th class="text-center">movimento</th>
+					<th class="text-center">troco inicial</th>
+					<th class="text-center">setor</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for item in itens %}
+				<tr>
+					<td class="text-center">{{mov_caixa.id_mov_caixa}}</a></td>
+					<td class="text-center">{{mov_caixa.mov}}</td>
+					<td class="text-center">{{mov_caixa.troco_inicial}}</td>
+					<td class="text-center">{{mov_caixa.setor_mov_caixa}}</td>
+				</tr>
+			{% empty %}
+				<p>Sem itens na lista.</p>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<hr>
+	<!--<div class="container">
+		<div class="row pull-right">
+			<h4 class="text-right"><b>Desconto: </b> <span class="label label-info">{{ venda.get_desconto }}</span></h4>
+			<h3 class="text-right"><b>Total: </b> <span class="label label-info">{{ venda.get_total }}</span></h3>
+		</div>
+	</div>-->
+	<div class="container">
+    	<div class="col-sm-1 pull-left">
+		</div>
+		<<div class="col-sm-2 pull-right">
+			<a type="button" class="btn btn-info" title="Imprime movimentode caixa em formato menor" ><i class="fa fa-print"></i>Imprimir Cupom</a>
+		</div>
+		<!--<div class="col-sm-1 pull-right">
+        	<form action="{% url 'core:altera_venda' venda.pk %}" method="GET">
+				<button type="submit" class="btn btn-warning" value="Alterar" title="Clique para alterar a venda"><i class="fa fa-pencil"></i> Alterar</button>
+        	</form>
+        </div>-->
+        <!--<div class="col-sm-1 pull-right">
+			<form action="{% url 'core:deleta_venda' venda.pk %}" method="POST">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-danger" value="Excluir" onclick="return confirm('Deseja realmente excluir?');" title="Clique para excluir a venda"><i class="fa fa-trash"></i>Excluir</button>
+	        </form>	        	
+        </div>-->
+	</div>
+{% endblock %}

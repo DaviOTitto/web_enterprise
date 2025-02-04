@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Vendas{% endblock title %}
+{% block subtitle %}Lista de Vendas{% endblock subtitle %}
+{% block numeroPagina %}0180-230{% endblock numeroPagina %}
+
+{% block content %}
+    <form class="navbar-form navbar" action="#" method="get">
+    	<div class="pull-right">
+    		<span>
+	    		<button type="button" action="#" id="btnFiltro" class="btn btn-info" title="Abrir menu de filtros"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
+	    	</span>
+	    	<span>
+	        <!-- add -->
+		        <a href="{% url 'core:nova_venda' %}">
+		            <button id="new_sale" type="button" class="btn btn-primary" title="Criar uma nova venda"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+		        </a>
+    	    </span>
+    	</div>	   	
+        <div id="filtros" class="pull-left hidden">
+	        <!-- filtro por datas -->
+	        <label for="data_inicial">Data Inicial: </label>
+	        <input id="data_inicial" type="date" name="data_inicial" class="form-control ml-sm-2">
+	        <label for="data_final">Data Final: </label>
+	        <input type="date" name="data_final" class="form-control ml-sm-2">
+	        <button id="btnFiltrarDatas" class="btn btn-success" type="submit" title="Filtrar vendas por intervalo de datas"><i class="fa fa-search"></i></button>
+	        <!-- search form -->
+	        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control" title="Filtrar as vendas realizadas pelo id do setor">
+	        <button id="btnFiltrarNome" type="submit" class="btn btn-success form-control" title="Filtrar vendas pelo nome do cliente"><i class="fa fa-search"></i></button>
+        </div>
+        
+	</form>
+	{% if vendas %}
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center">Código</th>
+					<th class="text-center">Cliente</th>
+					<th class="text-center">Data da venda</th>
+					<th class="text-center">Itens</th>
+					<th class="text-center">Total</th>
+					<th class="text-center">Vendedor</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for venda in vendas %}
+				{% if venda.get_itens == 0 %}
+				<tr class="danger">
+				{% elif venda.get_itens == 1 %}
+				<tr class="info">
+				{% else %}
+				<tr>
+				{% endif %}
+					<td class="text-center"><a href="{{ venda.get_detalhe }}" title="Clique para ver os detalhes da venda selecionada">{{ venda.numero_ven }}</a></td>
+					<td class="text-center">{{ venda.cliente_ven.nome_cad }}</td>
+					<td class="text-center">{{ venda.data_ven|date:"d/m/Y" }}</td>
+					<td class="text-center">{{ venda.get_itens }}</td>
+					<td class="text-center">{{ venda.get_total }}</td>
+					<td class="text-center">{{venda.usuario_ven.username}}</td>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% else %}
+	<p class="alert alert-warning">Sem itens na lista.</p>
+	{% endif %}
+<hr>
+<div>
+<h3>{{ vendas|length }} venda{{ vendas|length|pluralize }}</h3>
+<h4><b>Total:</b> {{ vendas.paginator.count }} venda{{ vendas.paginator.count|pluralize }}</h4>
+</div>
+
+{% if vendas.has_other_pages %}
+<div class="row text-center">
+    <div class="col-lg-12">
+		<ul class="pagination">
+		    {% if vendas.has_previous %}
+		    	<li><a href="?page={{ vendas.previous_page_number }}">&laquo;</a></li>
+		        <li><a href="?page=1">1</a></li>
+		        {% if vendas.previous_page_number != 1 %}
+			        <li><a href="?page={{ vendas.previous_page_number }}">{{ vendas.previous_page_number }}</a></li>
+		        {% endif %}
+		    {% else %}
+		      <li class="disabled"><span>&laquo;</span></li>
+		    {% endif %}
+        	<li class="active"><span>{{ vendas.number }} <span class="sr-only">(current)</span></span></li>
+	        {% if vendas.has_next %}
+	        	{% if vendas.next_page_number != vendas.paginator.num_pages %}
+		            <li><a href="?page={{ vendas.next_page_number }}">{{ vendas.next_page_number }}</a></li>
+		        {% endif %}
+	            <li><a href="?page={{ vendas.paginator.num_pages }}">{{ vendas.paginator.num_pages }}</a></li>
+	            <li><a href="?page={{ vendas.next_page_number }}">&raquo;</a></li>
+	        {% endif %}
+		</ul>
+	</div>
+</div>
+{% endif %}
+<script type="text/javascript">
+	const btnFiltros = document.querySelector("#btnFiltro");
+	btnFiltros.addEventListener('click', function(evento) {
+		evento.preventDefault();
+		const seletorFiltros = document.querySelector("#filtros");
+		if(seletorFiltros.classList.contains("hidden")) {
+			seletorFiltros.classList.remove('hidden');
+		} else {
+			seletorFiltros.classList.add('hidden');
+		}
+	});
+</script>
+{% endblock content %}

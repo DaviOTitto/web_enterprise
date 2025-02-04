@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastros{% endblock title %}
+{% block subtitle %}Cadastros{% endblock %}
+{% block numeroPagina %}0180-230{% endblock numeroPagina %}
+
+{% block content %}
+    <form class="navbar-form navbar-right" action="." method="get">
+        <!-- add -->
+        <a href="{% url 'core:cadastros_add' %}">
+            <button id="new_customer" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span> Adicionar
+            </button>
+        </a>
+        <!-- search form -->
+        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control">
+        <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+	</form>
+	{% if clientes %}
+		<div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="text-center">Nome</th>
+						<th class="text-center">CPF</th>
+						<th class="text-center">Email</th>
+						<th class="text-center">Fone</th>
+						<th class="text-center">Nascimento</th>
+						<!-- <th>Idade</th> -->
+						<th class="text-center">Compras</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for cadastro in clientes %}
+					<tr>
+						<td class="text-center"><a href="{{ cadastro.get_cadastro_url }}">{{ cadastro.nome_cad }}</a></td>
+						<td class="text-center">{{ cadastro.cgc_cpf_cad }}</td>
+						<td class="text-center">{{ cadastro.email_cad }}</td>
+						<td class="text-center">{{ cadastro.telefone1_cad }}</td>
+						<td class="text-center">{{ cadastro.aniversario_cad|date:"d/m/Y" }}</td>
+						<td class="text-center"><a href="{{ cadastro.get_sale_cadastro_url }}">{{cadastro.get_sales_count }}</a></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% else %}
+  <p class="alert alert-warning">Sem itens na lista.</p>
+{% endif %}
+
+<hr>
+<div>
+<h3>{{ clientes|length }} cliente{{ clientes|length|pluralize }}</h3>
+<h4><b>Total:</b> {{ clientes.paginator.count }} cliente{{ clientes.paginator.count|pluralize }}</h4>
+</div>
+
+{% if clientes.has_other_pages %}
+<div class="row text-center">
+    <div class="col-lg-12">
+		<ul class="pagination">
+		    {% if clientes.has_previous %}
+		    	<li><a href="?page={{ clientes.previous_page_number }}">&laquo;</a></li>
+		        <li><a href="?page=1">1</a></li>
+		        {% if clientes.previous_page_number != 1 %}
+			        <li><a href="?page={{ clientes.previous_page_number }}">{{ clientes.previous_page_number }}</a></li>
+		        {% endif %}
+		    {% else %}
+		      <li class="disabled"><span>&laquo;</span></li>
+		    {% endif %}
+        	<li class="active"><span>{{ clientes.number }} <span class="sr-only">(current)</span></span></li>
+	        {% if clientes.has_next %}
+	        	{% if clientes.next_page_number != clientes.paginator.num_pages %}
+		            <li><a href="?page={{ clientes.next_page_number }}">{{ clientes.next_page_number }}</a></li>
+		        {% endif %}
+	            <li><a href="?page={{ clientes.paginator.num_pages }}">{{ clientes.paginator.num_pages }}</a></li>
+	            <li><a href="?page={{ clientes.next_page_number }}">&raquo;</a></li>
+	        {% endif %}
+		</ul>
+	</div>
+</div>
+{% endif %}
+
+{% endblock content %}

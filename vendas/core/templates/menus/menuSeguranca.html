@@ -1,0 +1,127 @@
+{% block css %}
+<style type="text/css">
+.menu,
+.sub-menu {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+.clearfix:after{
+    content: '.';
+    display: block;
+    clear: both;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.menu li {
+    position: relative;
+}
+.menu > li {
+    float: left;
+}
+
+.menu li:hover > .sub-menu {
+    display: block;
+}
+.sub-menu {
+    display: none;
+    position: absolute;
+    min-width: 150px;
+}
+
+.sub-menu .sub-menu {
+    top: 0;
+    left: 100%;
+}
+</style>
+{% endblock css %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'core:home' %}" title="Clique para ir para a página inicial">WebEnterprise</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav menu clearfix">
+<!-- ARQUIVOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Arquivos <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">manutenção de Data E valores Diarios </a></li>
+            <li><a href="http://127.0.0.1:8000/admin/core/setor/">Manutenção de Setores </a></li> 
+            <li><a href="http://127.0.0.1:8000/admin/users/user/">Usuarios e senhas </a></li> 
+            <li><a href="#">Tabela de Criterios  de Comissoes e descontos</a></li>              
+            <li><a href="#">Manutenção da tabela NCM/CEST </a></li>
+            <li><a href="#">manutenção do setor qualidade </a></li>
+            <li><a href="#">Parâmetros SIG-2000</a></li>
+            <li><a href="#">Segurança GeRal</a></li>
+            <li><a href="#">Unidades Padrões de Produtos</a></li>
+          </ul>
+        </li>
+<!-- ARQUIVOS FIM -->
+<!-- MOVIMENTOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimentos <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Importar/Exportar dados </a></li> 
+            <li><a href="#">Transportar movimentos entre Setores</a></li>  
+          </ul>
+        </li>
+<!-- MOVIMENTOS FIM -->
+<!-- CONSULTAS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas de Indices <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Consulta pela descricao de Setores</a></li> 
+            <li><a href="#">Consulta pelo nome de usuarios</a></li> 
+            <li><a href="#">Consulta de log Exclusoes </a></li> 
+            <li><a href="#">Inteligencia de negocios </a></li> 
+            <li><a href="#">Estatistica de Registro de Banco de Dados </a></li> 
+          </ul>
+        </li>
+<!-- CONSULTAS FIM -->
+<!-- RELATÓRIOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios-1 <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Emissão de CRACHA</a></li>  
+          </ul>
+        </li>
+<!-- RELATÓRIOS FIM -->     
+<!-- FERRAMENTAS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ferramentas <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Gerar Relatorio</a></li> 
+          </ul>
+        </li>
+<!-- FERRAMENTAS FIM -->    
+        <li><a href="#">Ajuda <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="" data-toggle="modal" data-target="#ModalSobreSistema">Sobre o Sistema</a></li>
+            <li><a href="http://www.cecotein.com.br/Cecotein/" target="_blank" rel="noopener noreferrer">Home Page</a></li>
+          </ul>
+        </li>                                       
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}" title="Clique para ir para área do usuário">Olá, {{ request.user.first_name }}!</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-exclamation-sign"></span> Login</a></li>
+        {% endif %}
+      </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>

@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}Alterar venda{% endblock title %}
+{% block subtitle %}Alterar Venda{% endblock subtitle %}
+{% block numeroPagina %}0180-000{% endblock numeroPagina %}
+
+{% block content %}
+  <form action="" method="POST" id="nomecliente">{% csrf_token %}
+    <legend class="lead">Cliente</legend>
+    <div id="form-inline-nova-venda" class="form-inline">
+      {{ forms|bootstrap }}
+        <button id="btnModalCliente" class="btn btn-primary fa fa-search" data-toggle="modal" data-target="#ModalListaClientes" title="Clique para abrir a grade de pesquisa de clientes">
+	  {{ formset.management_form|bootstrap }}
+    </div>
+    <legend class="lead">Produtos</legend>
+    <div id="order" class="form-inline">
+      {% for item_order_form in formset %}
+        <div id="item-{{ forloop.counter0 }}" class="form-group">          
+          {{ item_order_form|bootstrap }} 
+        </div>
+      {% endfor %}     
+    </div>
+    <a class="btn btn-info" id="add-item" title="Adicionar novo produto a venda"><i class="fa fa-plus"></i> Adicionar</a>
+      <br><br>
+    <div class="row align-items-center">
+      <div class="col-md-10">
+      </div>
+      <div class="col-sm-1">
+        <a href="{% url 'core:listar_vendas' %}" class="btn btn-danger pull-right" title="Clique para cancelar a inclusão da nova venda e retornar a lista de vendas"><i class="fa fa-times"></i> Cancelar</a>
+      </div>
+      <div class="col-sm-1">
+        <button class="btn btn-primary pull-right" value="Save" title="Clique para salvar a nova venda"><i class="fa fa-floppy-o"></i> Salvar</button>
+      </div>
+    </div>
+  </form>
+  {% include 'core/venda/modal/modal_cliente.html' %}
+  {% include 'core/venda/modal/modal_produto.html' %}
+<script type="text/javascript">
+$(document).ready(function () {
+ // Envia número do botão pesquisar clicado
+  let valor = 0;
+  function setaDadosModal(valor) {
+    document.getElementById('btn_importar_produto').value = valor;
+  }  
+// Recupera dados da venda já realizada e insere nos campos
+  $("#id_main-cliente_ven").val("{{ cliente.pk }}");
+  $("#id_main-cliente_ven_aux").val("{{ cliente.full_name }}"); 
+  $("#id_main-desconto_ven").val({{ desconto }});
+  let itens_venda = {{ itens_venda | safe }};
+  let k = 0;
+  for(let i = 0; i <= itens_venda.length; i++) {
+    $(`#id_product-${i}-Cod_Pro_ITEVEN`).val(itens_venda[k]);
+    $(`#id_product-${i}-Cod_Pro_ITEVEN_aux`).val(itens_venda[k+1]);
+    k += 2;
+  }
+  let linhas = $("#order").children().length;
+  for(let i = 0; i < linhas; i++) {
+    $("<div/>", {id:`divBtn-${i}`, "class":"form-group"}).appendTo(`#item-${i}`); 
+    $("<button/>", {id:`id_product-${i}-btnModalProduto`, "class":"btn btn-primary fa fa-search", "data-toggle":"modal", "data-target":"#ModalListaProdutos", title:"Clique para abrir a grade de pesquisa de produtos"}).appendTo(`#divBtn-${i}`);
+    $("<button/>", {id:`id_product-${i}-btnExcluirProduto`, "class":"btn btn-danger fa fa-trash", title:"Clique para excluir o produto selecionado"}).appendTo(`#divBtn-${i}`);
+  }
+
+ // BOTAO DE ADICIONAR NOVO PRODUTO
+	 $("#add-item").click(function adicionarProduto(ev) { 
+	   ev.preventDefault();
+	   let count = ($('#order').children().length);
+		 let tmplMarkup = $("#item-0").html();
+	   let compiledTmpl = tmplMarkup.replace(/0/g, count);
+		 $("<div/>", {id:`item-${count}`, "class":"form-group"}).appendTo(`div#order`); 
+	   $(`#item-${count}`).append(compiledTmpl);	 
+	   $('#id_product-TOTAL_FORMS').attr('value', count + 1);
+//	   $(`#id_product-${count}-Num_Ven_ITEVEN`).val($('#id_product-0-Num_Ven_ITEVEN').val()); 
+//	   $(`#id_product-${count}-Numero_ITEVEN`).val({{ quantidade_ITEVEN | safe }} + Numero_ITEVEN); 
+//	   Numero_ITEVEN += 1;
+	   $(`#id_product-${count}-Cod_Pro_ITEVEN`).attr({size:2})
+	   $(`#id_product-${count}-Cod_Pro_ITEVEN`).val('');
+	   $(`#id_product-${count}-Cod_Pro_ITEVEN_aux`).attr({size:40})
+	   $(`#id_product-${count}-Cod_Pro_ITEVEN_aux`).val('');
+	   $(`#id_product-${count}-Valor_Unit_ITEVEN`).attr({value:1,step:0.01});
+	   $(`#id_product-${count}-Quant_ITEVEN`).attr({value:1,step:0.01});
+	 });
+
+	function adicionarItem(id) {
+	  $("#search-box-produto").focus();  
+	  $("#search-box-produto").keypress(function(evento) { // Com leitura direta na tela
+		  if(evento.which == 13) {
+			  evento.preventDefault();
+			  let index = $(this).parent().index();
+			  let nth = "#tabela-produto td:nth-child("+(index+1).toString()+")";
+			  let valor = $(this).val().toUpperCase();
+			  $("#tabela-produto tbody tr").show();
+			  $(nth).each(function(){
+				  if($(this).text().toUpperCase().indexOf(valor) < 0){
+					  $(this).parent().hide();
+				  }
+			  });
+		  }
+	  });
+	  $("#search-box-produto").blur(function() {
+		  $(this).val("");
+	  });
+
+	  setaDadosModal(id);
+	  $(`#btn_importar_produto`).click(function() {
+			if(document.getElementById('btn_importar_produto').value == id) {
+				if($("input[type='radio'].radioBtnClassProduto").is(':checked')) {
+					var produto = $("input[type='radio'].radioBtnClassProduto:checked").val();
+					$(`#id_product-${id}-Cod_Pro_ITEVEN`).val(produto.split('-')[0]);
+					$(`#id_product-${id}-Cod_Pro_ITEVEN_aux`).val(produto.split('-')[1]);
+				}
+			}
+	  });
+	  $("input[type='radio'].radioBtnClassProduto").attr('checked', false);
+	  $("#tabela-produto tbody tr").show();
+	}
+
+	function excluirItem(id) {
+	  let totalForms = document.querySelector('#id_product-TOTAL_FORMS');
+	  if(id == 0) {
+			alert('Não é possível excluir o primeiro item!');
+	  } else if(id+1 < totalForms.value) {
+			tam = id;
+			while(tam+1 < totalForms.value) {
+				document.querySelector(`#id_product-${tam}-Cod_Pro_ITEVEN`).value = document.querySelector(`#id_product-${tam+1}-Cod_Pro_ITEVEN`).value;
+				document.querySelector(`#id_product-${tam}-Cod_Pro_ITEVEN_aux`).value = document.querySelector(`#id_product-${tam+1}-Cod_Pro_ITEVEN_aux`).value;          
+				document.querySelector(`#id_product-${tam}-Quant_ITEVEN`).value = document.querySelector(`#id_product-${tam+1}-Quant_ITEVEN`).value;
+				document.querySelector(`#id_product-${tam}-Valor_Unit_ITEVEN`).value = document.querySelector(`#id_product-${tam+1}-Valor_Unit_ITEVEN`).value;
+				tam++;
+			}
+			totalForms.value -= 1;
+			document.querySelector(`#item-${totalForms.value}`).remove(); 
+//			Numero_ITEVEN -= 1;
+	  } else {
+			totalForms.value -= 1;
+			document.querySelector(`#item-${totalForms.value}`).remove();       
+//			Numero_ITEVEN -= 1;
+	  }
+	} 
+
+// ------------------------------------------------------------- CLIENTES
+// Adiciona filtro por nome no modal cliente
+	function adicionarCliente(id) {
+	  $("#search-box-cliente").keypress(function(evento) { // Com leitura direta na tela
+			if(evento.which == 13) {
+				evento.preventDefault();
+				let index = $(this).parent().index();
+				let nth = "#tabela-cliente td:nth-child("+(index+1).toString()+")";
+				let valor = $(this).val().toUpperCase();
+				$("#tabela-cliente tbody tr").show();
+				$(nth).each(function(){
+					if($(this).text().toUpperCase().indexOf(valor) < 0){
+						$(this).parent().hide();
+					} 
+				});
+			}
+	  });
+		$("#search-box-cliente").blur(function() {
+	    $(this).val("");
+	  });
+// Envia informação selecionado no modal para os campos de cliente    
+	  $("#btn_importar_cliente").click(function() {
+	    if($("input[type='radio'].radioBtnClassCliente").is(':checked')) {
+				var cliente = $("input[type='radio'].radioBtnClassCliente:checked").val();
+				$("#id_main-Cod_Cli_VEN").val(cliente.split('-')[0]);
+				$("#id_main-Cod_Cli_VEN_aux").val(cliente.split('-')[1]);
+	    }
+	  });
+	  $("input[type='radio'].radioBtnClassCliente").attr('checked', false);
+	  $("#tabela-cliente tbody tr").show();    
+	}
+// ---------------------------------------------------------------- CAPTAR CLIQUES 
+// Captar os cliques no botao de pesquisar clientes
+	$("#btnModalCliente").click(function(evento) {
+	  evento.preventDefault();
+	  adicionarCliente();
+	});
+
+// Captar todos os cliques dentro da div "order", na seçao de produtos
+	$("#order").on('click', '.btn', function(evento) {
+	  evento.preventDefault();
+	  console.log(this.id)
+	  if(this.id.split("-")[2] === "btnModalProduto") {
+	  //	if(this.id.split("-")[2] !== "btn_excluir") {
+			adicionarItem(Number(this.id.split("-")[1]));
+	  } else {
+			excluirItem(Number(this.id.split("-")[1]));
+	  }
+	});
+});
+</script>
+
+{% endblock %}  

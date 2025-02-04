@@ -1,0 +1,442 @@
+{% block css %}
+<style type="text/css">
+.menu,
+.sub-menu {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: blue;
+    white-space: nowrap;
+}
+.clearfix:after{
+    content: '.';
+    display: block;
+    clear: both;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.menu li {
+    position: relative;
+}
+.menu > li {
+    float: left;
+}
+
+.menu li:hover > .sub-menu {
+    display: block;
+}
+.sub-menu {
+    display: none;
+    position: absolute;
+    min-width: 150px;
+}
+
+.sub-menu .sub-menu {
+    top: 0;
+    left: 100%;
+}
+</style>
+{% endblock css %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'core:home' %}" title="Clique para ir para a página inicial">WebEnterprise</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav menu clearfix">
+<!-- ARQUIVOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Arquivos <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Cadastro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="http://127.0.0.1:8000/admin/core/customer/">Manutenção de Cadastro</a></li>
+                <li><a href="/admin/core/estado/">Manutenção de Estados + Alíquota</a></li>
+                <li><a href="#">Inscrição de Classes de Cadastro</a></li>
+                <li><a href="#">Associação de Cadastro</a></li>
+                <li><a href="#">Parâmetros do Cadastro</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Contratos <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Manutenção de Bens (Patrimônio)</a></li>
+                <li><a href="#">Manutenção de Locais de Entrega</a></li>
+                <li><a href="#">Tabela de Contratos de Locação Padrão</a></li>
+                <li><a href="#">Parâmetros do Contratos</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Estoque <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Manutenção de Produtos</a></li>
+                <li><a href="#">Manutenção dos Lotes de Produtos</a></li>
+                <li><a href="#">Manutenção de Composição</a></li>
+                <li><a href="#">Manutenção dos Códigos Tributários</a></li>
+                <li><a href="#">Produtos Tabelados ou com Substituição Tributária</a></li>
+                <li><a href="#">Descrições para Lotes de Produtos</a></li>
+                <li><a href="http://127.0.0.1:8000/admin/core/tipopro/">Tipos de Produtos</a></li>
+                <li><a href="http://127.0.0.1:8000/admin/core/grupopro/">Grupos de Produtos</a></li>
+                <li><a href="#">Unidade Padrões de Produtos</a></li>
+                <li><a href="#">Manutenção de Produtos Similares</a></li>
+                <li><a href="#">Parâmetros do Estoque</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Faturamento <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Venda de Produtos</a></li>
+                <li><a href="#">Tabela de Brindes</a></li>
+                <li><a href="#">Condições de Pagamento</a></li>
+                <li><a href="#">Tabela de CFOP</a></li>
+                <li><a href="#">Manutenção do Arquivo de Comissões</a></li>
+                <li><a href="#">Parâmetros de Faturamento</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Financeiro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Manutenção de Títulos</a></li>
+                <li><a href="#">Contas Bancárias</a></li>
+                <li><a href="#">Instituições Financeiras</a></li>
+                <li><a href="#">Tabela de Despesas Fixas</a></li>
+                <li><a href="#">Relacionamentos do Gerador da Contabilidade</a></li>
+                <li><a href="#">Manutenção de Contratos</a></li>
+                <li><a href="#">Manutenção de Espécies de Títulos</a></li>
+                <li><a href="#">Parâmetros do Financeiro</a></li>
+              </ul>
+            </li>              
+            <li><a href="#">Verejo <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Manutenção de Produtos</a></li>
+                <li><a href="#">Parâmetros do Verejo</a></li>
+              </ul>
+            </li>                                       
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguranca <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">manutenção de Data E valores Diarios </a></li>
+            <li><a href="http://127.0.0.1:8000/admin/core/setor/">Manutenção de Setores </a></li> 
+            <li><a href="http://127.0.0.1:8000/admin/users/user/">Usuarios e senhas </a></li> 
+            <li><a href="#">Tabela de Criterios  de Comissoes e descontos</a></li>              
+            <li><a href="/admin/core/ncm_cest/">Manutenção da tabela NCM/CEST </a></li>
+            <li><a href="#">manutenção do setor qualidade </a></li>
+            <li><a href="#">Parâmetros SIG-2000</a></li>
+            <li><a href="#">Segurança GeRal</a></li>
+            <li><a href="#">Unidades Padrões de Produtos</a></li>
+          </ul>
+        </li>
+          </ul>
+
+        </li>
+<!-- ARQUIVOS FIM -->
+<!-- MOVIMENTOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimentos <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Cadastro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Exclusão de Cadastro Automática</a></li>
+                <li><a href="#">Escolha de Mala Direta</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Contratos <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Lançamento de Contrato de Locação</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Estoque <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Alteração Automática dos Preços de Venda</a></li>
+                <li><a href="#">Manutenção de Movimentos</a></li>
+                <li><a href="#">Cálculo do Mínimo Automático</a></li>
+                <li><a href="#">Aceite de Transferências de Movimentos</a></li>
+                <li><a href="#">Replicação Entre Setores</a></li>
+                <li><a href="#">Alteração Manual dos Preços de Venda</a></li>
+                <li><a href="#">Exclusão Automática de Registros</a></li>
+                <li><a href="#">Alteração Automática de Produtos</a></li>
+                <li><a href="#">Manutenção de Localizações e Validades</a></li>
+                <li><a href="#">Baixa de Sucatas</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Faturamento <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Notas Fiscais Diversas</a></li>
+                <li><a href="#">Exclusão Automática de Registros</a></li>
+                <li><a href="#">Lançamentos para Convênios</a></li>
+                <li><a href="#">Funcionários Inativos para Convênios</a></li>
+                <li><a href="#">Gerador do Arquivo de Comissões</a></li>
+                <li><a href="#">Recalcular Comissões</a></li>
+                <li><a href="#">Venda Antecipada</a></li>
+                <li><a href="#">Controle de Vendas Iniciadas</a></li>
+                <li><a href="#">Controle de Pedidos para Almoxarifado</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Financeiro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Baixa por Número de Títulos</a></li>
+                <li><a href="#">Baixa de Títulos por Cadastro</a></li>
+                <li><a href="#">Baixa de Títulos pelo Vencimento</a></li>
+                <li><a href="#">Movimentações Bancárias</a></li>
+                <li><a href="#">Agrupamento de Títulos</a></li>
+                <li><a href="#">Exclusão Automática de Títulos</a></li>
+                <li><a href="#">Gerador de Despesas Fixas</a></li>
+                <li><a href="#">Gerador de Lançamentos na Contabilidade</a></li>
+                <li><a href="#">Controle + Liberação de Clientes</a></li>
+              </ul>
+            </li>              
+            <li><a href="#">Verejo <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Vendas de Produtos</a></li>
+                <li><a href="#">Lançamento de Placas de Veículos de Clientes</a></li>
+              </ul>
+            </li>                                       
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguranca  <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Importar/Exportar dados </a></li> 
+            <li><a href="#">Transportar movimentos entre Setores</a></li>  
+          </ul>
+        </li>
+          </ul>
+        </li>
+<!-- MOVIMENTOS FIM -->
+<!-- CONSULTAS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Cadastro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Exclusão de Cadastro Automática</a></li>
+                <li><a href="#">Escolha de Mala Direta</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Contratos <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Lançamento de Contrato de Locação</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Estoque <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Alteração Automática dos Preços de Venda</a></li>
+                <li><a href="#">Manutenção de Movimentos</a></li>
+                <li><a href="#">Cálculo do Mínimo Automático</a></li>
+                <li><a href="#">Aceite de Transferências de Movimentos</a></li>
+                <li><a href="#">Replicação Entre Setores</a></li>
+                <li><a href="#">Alteração Manual dos Preços de Venda</a></li>
+                <li><a href="#">Exclusão Automática de Registros</a></li>
+                <li><a href="#">Alteração Automática de Produtos</a></li>
+                <li><a href="#">Manutenção de Localizações e Validades</a></li>
+                <li><a href="#">Baixa de Sucatas</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Faturamento <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Notas Fiscais Diversas</a></li>
+                <li><a href="#">Exclusão Automática de Registros</a></li>
+                <li><a href="#">Lançamentos para Convênios</a></li>
+                <li><a href="#">Funcionários Inativos para Convênios</a></li>
+                <li><a href="#">Gerador do Arquivo de Comissões</a></li>
+                <li><a href="#">Recalcular Comissões</a></li>
+                <li><a href="#">Venda Antecipada</a></li>
+                <li><a href="#">Controle de Vendas Iniciadas</a></li>
+                <li><a href="#">Controle de Pedidos para Almoxarifado</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Financeiro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Baixa por Número de Títulos</a></li>
+                <li><a href="#">Baixa de Títulos por Cadastro</a></li>
+                <li><a href="#">Baixa de Títulos pelo Vencimento</a></li>
+                <li><a href="#">Movimentações Bancárias</a></li>
+                <li><a href="#">Agrupamento de Títulos</a></li>
+                <li><a href="#">Exclusão Automática de Títulos</a></li>
+                <li><a href="#">Gerador de Despesas Fixas</a></li>
+                <li><a href="#">Gerador de Lançamentos na Contabilidade</a></li>
+                <li><a href="#">Controle + Liberação de Clientes</a></li>
+              </ul>
+            </li>              
+            <li><a href="#">Verejo <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Vendas de Produtos</a></li>
+                <li><a href="#">Lançamento de Placas de Veículos de Clientes</a></li>
+              </ul>
+            </li>                                       
+           <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguranca <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Consulta pela descricao de Setores</a></li> 
+            <li><a href="#">Consulta pelo nome de usuarios</a></li> 
+            <li><a href="#">Consulta de log Exclusoes </a></li> 
+            <li><a href="#">Inteligencia de negocios </a></li> 
+            <li><a href="#">Estatistica de Registro de Banco de Dados </a></li> 
+          </ul>
+        </li>
+          </ul>
+        </li>
+<!-- CONSULTAS FIM -->
+<!-- RELATÓRIOS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Cadastro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Exclusão de Cadastro Automática</a></li>
+                <li><a href="#">Escolha de Mala Direta</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Contratos <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Lançamento de Contrato de Locação</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Estoque <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Alteração Automática dos Preços de Venda</a></li>
+                <li><a href="#">Manutenção de Movimentos</a></li>
+                <li><a href="#">Cálculo do Mínimo Automático</a></li>
+                <li><a href="#">Aceite de Transferências de Movimentos</a></li>
+                <li><a href="#">Replicação Entre Setores</a></li>
+                <li><a href="#">Alteração Manual dos Preços de Venda</a></li>
+                <li><a href="#">Exclusão Automática de Registros</a></li>
+                <li><a href="#">Alteração Automática de Produtos</a></li>
+                <li><a href="#">Manutenção de Localizações e Validades</a></li>
+                <li><a href="#">Baixa de Sucatas</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Faturamento <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Notas Fiscais Diversas</a></li>
+                <li><a href="#">Exclusão Automática de Registros</a></li>
+                <li><a href="#">Lançamentos para Convênios</a></li>
+                <li><a href="#">Funcionários Inativos para Convênios</a></li>
+                <li><a href="#">Gerador do Arquivo de Comissões</a></li>
+                <li><a href="#">Recalcular Comissões</a></li>
+                <li><a href="#">Venda Antecipada</a></li>
+                <li><a href="#">Controle de Vendas Iniciadas</a></li>
+                <li><a href="#">Controle de Pedidos para Almoxarifado</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Financeiro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Impressão de movimento de caixa </a></li> 
+                <li><a href="#">Baixa por Número de Títulos</a></li>
+                <li><a href="#">Baixa de Títulos por Cadastro</a></li>
+                <li><a href="#">Baixa de Títulos pelo Vencimento</a></li>
+                <li><a href="#">Movimentações Bancárias</a></li>
+                <li><a href="#">Agrupamento de Títulos</a></li>
+                <li><a href="#">Exclusão Automática de Títulos</a></li>
+                <li><a href="#">Gerador de Despesas Fixas</a></li>
+                <li><a href="#">Gerador de Lançamentos na Contabilidade</a></li>
+                <li><a href="#">Controle + Liberação de Clientes</a></li>
+              </ul>
+            </li>              
+            <li><a href="#">Verejo <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Vendas de Produtos</a></li>
+                <li><a href="#">Lançamento de Placas de Veículos de Clientes</a></li>
+              </ul>
+            </li>                                       
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguranca  <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Emissão de CRACHA</a></li>  
+          </ul>
+        </li>
+          </ul>
+        </li>
+<!-- RELATÓRIOS FIM -->
+<!-- FERRAMENTAS INÍCIO -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ferramentas <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Cadastro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Exclusão de Cadastro Automática</a></li>
+                <li><a href="#">Escolha de Mala Direta</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Contratos <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Lançamento de Contrato de Locação</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Estoque <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Alteração Automática dos Preços de Venda</a></li>
+                <li><a href="#">Manutenção de Movimentos</a></li>
+                <li><a href="#">Cálculo do Mínimo Automático</a></li>
+                <li><a href="#">Aceite de Transferências de Movimentos</a></li>
+                <li><a href="#">Replicação Entre Setores</a></li>
+                <li><a href="#">Alteração Manual dos Preços de Venda</a></li>
+                <li><a href="#">Exclusão Automática de Registros</a></li>
+                <li><a href="#">Alteração Automática de Produtos</a></li>
+                <li><a href="#">Manutenção de Localizações e Validades</a></li>
+                <li><a href="#">Baixa de Sucatas</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Faturamento <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Notas Fiscais Diversas</a></li>
+                <li><a href="#">Exclusão Automática de Registros</a></li>
+                <li><a href="#">Lançamentos para Convênios</a></li>
+                <li><a href="#">Funcionários Inativos para Convênios</a></li>
+                <li><a href="#">Gerador do Arquivo de Comissões</a></li>
+                <li><a href="#">Recalcular Comissões</a></li>
+                <li><a href="#">Venda Antecipada</a></li>
+                <li><a href="#">Controle de Vendas Iniciadas</a></li>
+                <li><a href="#">Controle de Pedidos para Almoxarifado</a></li>
+              </ul>
+            </li> 
+            <li><a href="#">Financeiro <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Baixa por Número de Títulos</a></li>
+                <li><a href="#">Baixa de Títulos por Cadastro</a></li>
+                <li><a href="#">Baixa de Títulos pelo Vencimento</a></li>
+                <li><a href="#">Movimentações Bancárias</a></li>
+                <li><a href="#">Agrupamento de Títulos</a></li>
+                <li><a href="#">Exclusão Automática de Títulos</a></li>
+                <li><a href="#">Gerador de Despesas Fixas</a></li>
+                <li><a href="#">Gerador de Lançamentos na Contabilidade</a></li>
+                <li><a href="#">Controle + Liberação de Clientes</a></li>
+              </ul>
+            </li>              
+            <li><a href="#">Verejo <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Vendas de Produtos</a></li>
+                <li><a href="#">Lançamento de Placas de Veículos de Clientes</a></li>
+              </ul>
+            </li>  
+             <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguranca <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Gerar Relatorio</a></li> 
+          </ul>
+        </li>                                     
+          </ul>
+        </li>
+<!-- FERRAMENTAS FIM -->
+        <li><a href="#">Ajuda <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+          <ul class="dropdown-menu sub-menu">
+            <li><a href="#">Sobre o Sistema</a></li>
+            <li><a href="{% url 'core:home' %}">Home Page</a></li>
+          </ul>
+        </li>                                       
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}" title="Clique para ir para área do usuário">Olá, {{ request.user.first_name }}!</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-exclamation-sign"></span> Login</a></li>
+        {% endif %}
+      </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>

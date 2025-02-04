@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuario: {{User.id}}{% endblock title %}
+{% block subtitle %}Nome de usuario: {{User.name}}{% endblock %}
+{% block numeroPagina %}{% endblock numeroPagina %}
+
+{% block content %}
+	<h2>
+		<!-- alteração, nome_cad para codigo cad
+			Davi Oliveira Tito 02/05/2022-->
+		<b>Login de usuario :</b> {{ User.username }}
+		<spam class="pull-right"><b>email:</b> {{ User.email}}</spam>	
+
+	</h2>
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center">codigo</th>
+					<th class="text-center">login</th>
+					<th class="text-center">nome completo</th>
+					<th class="text-center">funcão</th>
+					<th class="text-center">administrador</th>
+					<th class="text-center">foto de usuario</th>
+					<th class="text-center">foto da empresa do usuario</th>
+					<th class="text-center">setor do usuario.</th>
+				</tr>
+			</thead>
+			<tbody style="height:100px;
+          width: 100px;">				
+				<tr>
+					<td class="text-center">{{usuario.id}}</a></td>
+					<td class="text-center">{{usuario.username }}</td>
+					<td class="text-center">{{usuario.name}}</td>
+					<td class="text-center">{{usuario.func_usu }}</td>
+					<td class="text-center">{{usuario.is_superuser}}</a></td>
+					<td class="text-center"><img  id = "img-tam"  style="height:100px;width: 100px;" src='{{usuario.foto_usu.url}}'></td>
+					<td class="text-center"><img  id = "img-tam"  style="height:100px;width: 100px;" src='{{usuario.foto_emp.url}}'></td>
+					<td class="text-center">{{usuario.setor_usu }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<hr>
+	<div class="container">
+	</div>
+	<div class="container">
+    	<div class="col-sm-1 pull-left">
+			<a href="{% url 'seguranca' %}" title="Clique para voltar para lista de vendas"><span class="glyphicon glyphicon-chevron-left">Voltar</span></a>
+		</div>
+
+		<div class="col-sm-1 pull-right">
+        	<form action="" method="GET">
+				<button type="submit" class="btn btn-warning" value="Alterar" title="Clique para alterar a venda"><i class="fa fa-pencil"></i> Alterar</button>
+        	</form>
+        </div>
+        <div class="col-sm-1 pull-right">
+			<form action="" method="POST">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-danger" value="Excluir" onclick="return confirm('Deseja realmente excluir?');" title="Clique para excluir a venda"><i class="fa fa-trash"></i>Excluir</button>
+	        </form>	        	
+        </div>
+	</div>
+{% endblock %}

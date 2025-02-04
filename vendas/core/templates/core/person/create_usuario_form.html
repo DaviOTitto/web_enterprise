@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Cadastrar usuário{% endblock title %}
+{% block subtitle %}Novo Usuário{% endblock %}
+
+{# Adding select2 css #}
+{% block css %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{# Adding select2 js #}
+{% block js %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+      <div class="col-xs-10 col-md-12">
+          <form action="" method="POST">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-xs-8 col-md-5">
+                      {{ form|bootstrap }}
+                  </div>
+              </div>
+              <div class="form-inline buttons">
+                  <a href="{% url 'core:seller_list' %}" class="btn btn-danger pull-right">
+                      <i class="fa fa-times"></i>
+                      Cancelar
+                  </a>
+                  <button class="btn btn-primary pull-right" value="Save">
+                      <i class="fa fa-floppy-o"></i>
+                      Salvar
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+{% endblock %}

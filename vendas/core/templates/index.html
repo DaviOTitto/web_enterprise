@@ -1,0 +1,80 @@
+{% load static %}
+{% load bootstrap %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'img/cart.png' %}">
+    {% block title %}
+      <title>WebEnterprise</title>
+    {% endblock title %}
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/rgscale.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- MENU -->
+    {% include "menu_landpage.html" %}
+    <!-- Intro Header -->
+    <header class="intro">
+       
+        <div class="intro-body">
+            <marquee behavior="scroll" direction="right"> <img src="../../static/img/Nave_fundo_transp.png"> </marquee>
+            <div class="container" id="icones-container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <a href="{% url 'core:lista_cadastros' %}" class="btn btn-circle" id="cadastro" title="Cadastro"><i class="glyphicon glyphicon-user"></i></a>
+                        <a href="#" class="btn btn-circle" id="contratos" title="Contratos"><i class="glyphicon glyphicon-file"></i></a>
+                        <a href="{% url 'core:lista_produto' %}" class="btn btn-circle" id="estoque" title="Estoque"><i class="glyphicon glyphicon-folder-close"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <a href="#" class="btn btn-circle" id="faturamento" title="Faturamento"><i class="glyphicon  glyphicon-barcode"></i></a>
+                        <a href="#" class="btn btn-circle" id="caixa" title="Financeiro"><i class="glyphicon glyphicon-book"></i></a>
+                        <a href="#" class="btn btn-circle" id="varejo" title="Varejo"><i class="glyphicon glyphicon-list-alt"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <a href="{% url 'core:listar_vendas' %}" class="btn btn-circle" title="Vendas"><i id="vendas" class="glyphicon glyphicon-shopping-cart"></i></a>
+                            <a href="{% url 'core:listar_mov_caixa' %}" class="btn btn-circle" id="caixa" title="Financeiro"><i id="icon-caixa" class="glyphicon glyphicon-usd"></i></a>
+                       <a href="{% url 'seguranca' %}" class="btn btn-circle" id="lock" title="segurança"><i id="icon-lock" class="glyphicon glyphicon-lock"></i></a>
+                    </div>
+                </div>
+            <img src="{% static './img/Entrada SIG-2000.jpg' %}" class="pull-left" id="img-entrada">
+            </div>
+        </div>
+    </header>
+    <!-- Footer -->
+    <footer >
+        <div class="container text-center">
+            <p class="rotat">Cecotein Informática &copy; 2022</p>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static 'js/grayscale.js' %}"></script>
+</body>
+</html>

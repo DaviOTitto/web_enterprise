@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Área pessoal{% endblock %}
+{% block subtitle %}Área pessoal{% endblock %}
+{% block numeroPagina %}0180-000{% endblock %}
+
+{% block content %}
+    {% if not messages %}
+        <br>
+    {% endif %}
+    <h3>Bem vindo a sua área pessoal, {{ request.user.first_name }}.</h3>
+    <div class="container">
+        <a href="http://127.0.0.1:8000/customer/" class="btn btn-primary"><i class="glyphicon glyphicon-user"></i> Cadastro</a>
+        <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-file"></i> Contratos</a>
+        <a href="" class="btn btn-primary"><i class="glyphicon glyphicon-folder-close"></i> Estoque</a>
+        <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-usd"></i> Faturamento</a>
+        <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-book"></i> Financeiro</a>
+        <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i> Varejo</a>
+         <a href="{% url 'seguranca' %}" class="btn btn-primary"><i class="glyphicon glyphicon-lock"></i>Seguranca</a>
+         <a href="http://127.0.0.1:8000/admin/" class="btn btn-primary"><i class="glyphicon glyphicon-lock"></i> Admin</a>
+        <a href="{% url 'core:listar_vendas' %}" class="btn btn-primary"><i class="glyphicon glyphicon-shopping-cart"></i> Vendas</a>
+    </div>
+    <h4>Setor de lotação: <a href="{{ request.user.user_profile.get_setor_url }}" title="Clique para ver informações do setor">{{ request.user.Setor_USU }}</a></h4>
+    <h4>Total de vendas realizadas: <a href="{{ request.user.user_profile.get_sale_usuario_url }}" title="Clique para ver todas as vendas realizadas">{{ request.user.user_profile.get_sales_count }}</a></h4>
+    <br>
+    <h5>Você pode alterar seu registro <a href="{% url 'edit' %}" title="Clique para alterar seu registro">aqui</a>.</h5>
+    <br>
+    <a href="{% url 'logout' %}" title="Clique para sair">Sair</a>
+{% endblock%}

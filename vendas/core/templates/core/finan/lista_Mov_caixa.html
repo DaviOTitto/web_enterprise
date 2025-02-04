@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de movimento de caixa{% endblock title %}
+{% block subtitle %}Lista de movimento de caixa{% endblock subtitle %}
+{% block numeroPagina %}0180-230{% endblock numeroPagina %}
+
+{% block content %}
+    <form class="navbar-form navbar" action="#" method="get">
+    	<div class="pull-right">
+    		<span>
+	    		<button type="button" action="#" id="btnFiltro" class="btn btn-info" title="Abrir menu de filtros"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
+	    	</span>
+	    	<!--<span>
+	       
+		        <a href="#">
+		           <button id="new_sale" type="button" class="btn btn-primary" title="Criar uma nova venda"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+		        </a>
+    	    </span>-->
+    	</div>	   	
+        <div id="filtros" class="pull-left hidden">
+	        <!-- filtro por datas -->
+	        <a type="button" class="btn btn-info" onclick="window.open(`{% url 'core:Imprime_mov_geral'  %}`)" title="Imprime em formato menor (cupom entrega futura)"><i class="fa fa-print"></i>Imprimir Titulos(P)</a>
+	          <a type="button" class="btn btn-info" onclick="window.open(`{% url 'core:Imprime_mov_M'  %}`)" title="Imprime em formato menor (cupom entrega futura)"><i class="fa fa-print"></i>Imprimir Titulos(M)</a>
+	        <label for="data_inicial">Data Inicial: </label>
+	        <input id="data_inicial" type="date" name="data_inicial" class="form-control ml-sm-2">
+	        <label for="data_final">Data Final: </label>
+	        <input type="date" name="data_final" class="form-control ml-sm-2">
+	        <button id="btnFiltrarDatas" class="btn btn-success" type="submit" title="Filtrar titulos por datas"><i class="fa fa-search"></i></button>
+	        <!-- search form -->
+	        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control" title="Filtrar as vendas realizadas pelo nome do cliente">
+	        <button id="btnFiltrarNome" type="submit" class="btn btn-success form-control" title="Filtrar vendas pelo nome do cliente"><i class="fa fa-search"></i></button>
+        </div>
+        
+	</form>
+	{% if mov_caixa %}
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center">Codigo</th>
+					<th class="text-center">data de movimento</th>
+					<th class="text-center">Troco inicial</th>
+					<th class="text-center">cod_seto_mov</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+			{% for mov_caixa  in mov_caixa  %}
+				{% if mov_caixa.get_itens == 0 %}
+				<tr class="danger">
+				{% elif mov_caixa.get_itens == 1 %}
+				<tr class="info">
+				{% else %}
+				<tr>
+				{% endif %}
+					<td class="text-center"><a href="{% url 'core:Imprime_mov' mov_caixa.id_mov_Caixa %}" title="Clique para ver os detalhes da titulos  selecionada">{{ mov_caixa.id_mov_Caixa }}</a></td>
+					<td class="text-center">{{mov_caixa.data_mov|date:"d/m/Y" }}</td>
+					<td class="text-center">{{mov_caixa.Troco_inicial }}</td>
+					<td class="text-center">{{mov_caixa.cod_setor_mov_c.key_set}}</td>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% else %}
+	<p class="alert alert-warning">Sem itens na lista.</p>
+	{% endif %}
+<hr>
+<div>
+<h3>{{ mov_caixa|length }} mov_caixa{{mov_caixa|length|pluralize }}</h3>
+<h4><b>Total:</b> {{mov_caixa.paginator.count }}mov_caixa{{ mov_caixa.paginator.count|pluralize }}</h4>
+</div>
+
+{% if mov_caixa.has_other_pages %}
+<div class="row text-center">
+    <div class="col-lg-12">
+		<ul class="pagination">
+		    {% if mov_caixa.has_previous %}
+		    	<li><a href="?page={{ mov_caixa.previous_page_number }}">&laquo;</a></li>
+		        <li><a href="?page=1">1</a></li>
+		        {% if mov_caixa.previous_page_number != 1 %}
+			        <li><a href="?page={{ mov_caixa.previous_page_number }}">{{ mov_caixa.previous_page_number }}</a></li>
+		        {% endif %}
+		    {% else %}
+		      <li class="disabled"><span>&laquo;</span></li>
+		    {% endif %}
+        	<li class="active"><span>{{mov_caixa.number }} <span class="sr-only">(current)</span></span></li>
+	        {% if mov_caixa.has_next %}
+	        	{% if mov_caixa.next_page_number != mov_caixa.paginator.num_pages %}
+		            <li><a href="?page={{ mov_caixa.next_page_number }}">{{ mov_caixa.next_page_number }}</a></li>
+		        {% endif %}
+	            <li><a href="?page={{ mov_caixa.paginator.num_pages }}">{{ mov_caixa.paginator.num_pages }}</a></li>
+	            <li><a href="?page={{ mov_caixa.next_page_number }}">&raquo;</a></li>
+	        {% endif %}
+		</ul>
+	</div>
+</div>
+{% endif %}
+<script type="text/javascript">
+	const btnFiltros = document.querySelector("#btnFiltro");
+	btnFiltros.addEventListener('click', function(evento) {
+		evento.preventDefault();
+		const seletorFiltros = document.querySelector("#filtros");
+		if(seletorFiltros.classList.contains("hidden")) {
+			seletorFiltros.classList.remove('hidden');
+		} else {
+			seletorFiltros.classList.add('hidden');
+		}
+	});
+</script>
+{% endblock content %}

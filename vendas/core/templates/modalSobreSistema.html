@@ -1,0 +1,24 @@
+{% load static %}
+{% load bootstrap %}
+<div class="modal" tabindex="-1" role="dialog" id="ModalSobreSistema">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sobre o Sistema</h4>
+      </div>
+      <div class="modal-body" id="modalSobreCorpo" background="{% static './img/Cabeçalho de Emails.jpg' %}">
+        <h3>WebEnterprise</h3>
+        <p>Av. Guilherme Ferreira, 220 - Centro</p>
+        <p>Uberaba - MG - 38010-200</p>
+        <p>Tel/fax (34) 3312-6449</p>
+        <p>www.cecotein.com.br</p>
+        <p>cecotein@cecotein.com.br</p>
+        <p>Desenvolvido em Python/Django</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,77 @@
+{% load bootstrap %}
+{% load static %}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">-->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="{% static 'img/cart.png' %}">
+
+  <title>{% block title %}Admin{% endblock title %}</title>
+
+  <!-- Font Awesome --> 
+  <!-- <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}"> -->
+  
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.css.map' %}" rel="stylesheet">
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
+  {% block css %}{% endblock %}
+  
+  <!-- Bootstrap core JavaScript -->
+
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/angular.js' %}"></script>
+ 
+  {% block js %}{% endblock %}
+</head>
+<body>
+  <!-- MENU -->
+  {% include "menu.html" %}
+  <!-- CABEÇALHO -->
+  <div class = "container-cabec">
+    <div class = "row-cabec">
+    <div class="col" id="img-cliente">
+        <img  id = "img-tam"  style="height:100px;
+          width: 100px;" src="{% static 'img/Cliente.jpg' %}">
+      </div>
+     <!-- <div class = "col" id="img-cliente">
+        <img src = "{{ request.user.user_profile.Setor_USU.Foto_Cabec_Tela_SET.cabec.url }}">
+      </div>!-->
+      <div class = "col" id="subtitulo-pagina">
+        <h1>{% block subtitle %}ADMIN: {{ cl.opts.verbose_name_plural|capfirst }}{% endblock subtitle %}</h1>
+      </div>
+      <div class= "col" id="img-cecotein">
+        <p id = "numero-tela" title = "Código do sistema - Número da tela">{% block numeroPagina %}{% endblock %}</p>
+        <img src="{% static 'img/foto_cecotein.jpg' %}">
+      </div>
+    </div>
+  </div>
+  <div class="container">
+  <!-- MENSAGENS -->
+    {% include 'messages.html' %}
+  <!-- CORPO -->
+    {% block content %}{% endblock content %}
+  </div>
+<script>
+  if (!window.Global) {
+    window.Global = [];
+  }
+  Global.angular_dependencies = {% block angulardependencies %}[
+    ]{% endblock angulardependencies %};
+</script>
+<script src="{% static 'js/app/base.js' %}"></script>
+<script src="{% static 'js/app/vendas.js' %}"></script>
+<script src="{% static 'js/app/api.js' %}"></script>
+</body>
+</html>

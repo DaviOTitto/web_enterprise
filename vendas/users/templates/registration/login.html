@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Entrar{% endblock %}
+{% block subtitle %}Entrar{% endblock %}
+
+{% block content %}
+	<div class="row align-items-center">
+		<div class="col-sm-4">
+		</div>
+		<div class="col-sm-4">
+			<div class="login-form">
+				<form action="{% url 'login' %}" method="post">
+					{{ form|crispy }}
+					{% csrf_token %}
+					<input type="hidden" name="next" value="{{ next }}" />
+					<p><input type="submit" class="btn btn-primary" value="Entrar" title="Clique para entrar"></p>
+				</form>
+					<p><a href="{% url 'password_reset' %}" title="Clique para ser redirecionado a página de recuperação de senhas">Esqueceu a senha?</a></p>		
+					<p>Caso você não tenha uma conta, <a href="{% url 'register' %}" title="Clique para ser redirecionado a página de criação de conta">cadastre-se aqui</a>.</p>
+				</form>
+					<div class="col-sm-1">
+					<button class="btn btn-primary pull-right" value="Reconhecimento de face" title="Clique para fazer reconhecimento de face." onclick="window.open
+					(`{% url 'login_camera' %}`)"><i class="bi bi-camera-video"></i> Reconhecimento de Rosto</button>
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

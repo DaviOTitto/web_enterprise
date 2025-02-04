@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Tabelas{% endblock title %}
+{% block subtitle %}Lista de Tabelas{% endblock %}
+
+{% block content %}
+{% if tab == estados %}
+		<div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">Sigla</th>
+						<th class="text-center">Nome</th>
+						<th class="text-center">ICMS Compra</th>
+						<th class="text-center">ICMS Venda</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for estado in estados %}
+					<td class="text-center">{{ estado.sigla_est }}</td>
+					<td class="text-center" title="Clique para ver os detalhes do setor selecionada"><!-- <a href="{{ setor.get_setor_url }}">{{ setor.Nome_SET }}</a>-->{{ estado.nome_est }}</td>
+					<td class="text-center">{{ estado.icms_com_est }}</td>
+					<td class="text-center">{{ estado.icms_ven_est }}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% else %}
+  <p class="alert alert-warning">Sem setores na lista.</p>
+{% endif %}
+<hr>
+<div>
+<h3>{{ object_list|length }} setor{{ object_list|length|pluralize }}</h3>
+<h4><b>Total:</b> {{ page_obj.paginator.count }} setor{{ page_obj.paginator.count|pluralize }}</h4>
+</div>
+
+{% if object_list %}
+  <!-- pagination -->
+  {% include "_pagination.html" %}
+{% endif %}
+{% endblock content %}

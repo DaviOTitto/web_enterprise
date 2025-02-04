@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}Cadastrar venda{% endblock title %}
+{% block subtitle %}Nova Venda{% endblock %}
+
+{% block content %}
+  <form action="" method="POST" id="nomecliente">{% csrf_token %} 
+    <div id="form-inline-nova-venda" class="form-inline">
+      <legend class="lead">Venda</legend>
+      <div class="container">
+        <div class="form-group">
+          <label for="nmrVenda">Número da Venda</label>
+          <input type="text" id="nmrVenda" class="form-control" name="" value="{{ nmrVenda }}" disabled size="4" />
+          <label>Data</label>
+          <input type="text" class="form-control" name="" value="{{ data }}" disabled size="14" />
+        </div>
+        <div class="form-group">
+          <label>Preço do Setor</label>
+          <input type="text" class="form-control" name="" value="{{ vendedor.setor_usu.key_setor }}" disabled size="2" />
+          <input type="text" class="form-control" name="" value="{{ vendedor.setor_usu }}" disabled />
+        </div>
+        <div class="form-group">
+          <label>Código do Setor</label>
+          
+          <input type="text" class="form-control" name="" value="{{ vendedor.setor_usu.key_setor }}" disabled size="2" />
+          <input type="text" class="form-control" name="" value="{{ vendedor.setor_usu }}" disabled />
+        </div>
+        <div class="form-group">
+          <label>Código do Vendedor</label>
+      <!--alteração,id colocado,Davi Oliveira Tito 02/05/2022-->
+      <input type="text" class="form-control" name="" value="{{ vendedor.id}}" disabled size="2"  id="cod_usu"/> 
+          <!--alteração,id colocado,Davi Oliveira Tito 02/05/2022-->
+          <input type="text" class="form-control" name="" value="{{ vendedor.username}}" disabled 
+          id='compra_nova'/>
+        </div>
+      </div>
+      <legend class="lead">Cliente</legend>
+      <div class="container">
+        {% for field in forms %}
+          {% if 'cliente' in field.html_name %}
+            {% if 'aux_nome' in field.html_name %}
+              {{ field | bootstrap }}
+              <button id="btnModalCliente" class="btn btn-primary fa fa-search" data-toggle="modal" data-target="#ModalListaClientes" title="Clique para abrir a grade de pesquisa de clientes"></button>
+            {% else %}
+              {{ field | bootstrap }}
+            {% endif %}   
+          {% endif %}      
+        {% endfor %}
+      </div>
+      <legend class="lead">Pagamento</legend>
+      <div class="container">
+        {% for field in forms %}
+          {% if 'formapag' in field.html_name %}  
+            {% if 'aux_nome' in field.html_name %}
+              {{ field | bootstrap }}
+              <button id="btnModalEspecie" class="btn btn-primary fa fa-search" data-toggle="modal" data-target="#ModalEspecie" title="Clique para abrir a grade de pesquisa as formas de pagamento"></button>
+            {% else %}
+              {{ field | bootstrap }}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        <button id="btnModalParcelar" class="btn btn-primary" data-toggle="modal" data-target="#ModalParcelar" title="Divide o total da venda em parcelas, conforme a condição de pagamento escolhida"> Parcelar</button>
+        <button type="button" id="btn_efetivar" class="btn btn-primary" data-dismiss="modal">Efetivar</button>
+      </div>
+      {{ formset.management_form|bootstrap }} 
+    </div>
+    <legend class="lead">Produtos</legend>
+    <div class="container">
+      <div id="order" class="form-inline">
+        {% for item_order_form in formset %}
+          <div id="item-{{ forloop.counter0 }}" class="form-group">
+            {{ item_order_form|bootstrap }}  
+          </div>
+        {% endfor %}     
+      </div>
+
+      <a class="btn btn-info" id="add-item" title="Adicionar novo produto a venda"><i class="fa fa-plus" ></i>Adicionar</a> 
+      <a class="btn btn-info" id="buscas" title="aqui consulte a tabela de produtos"href="{% url 'core:lista_produto' %}"><i class="fa fa-plus"></i>consultar tabela</a>     
+    </div>
+    <legend class="lead">Fechamento</legend>
+    <div class="container">
+
+      <label for="totalParcial">Total Parcial</label>
+      <input type="number"   id = "totalParcial" class="form-control" name="totalParcial" disabled="true">
+      {% for field in forms %}
+        {% if not 'cliente' in field.html_name and not 'formapag' in field.html_name %}
+          {{ field | bootstrap }}
+        {% endif %}
+      {% endfor %}
+      <label for="totalFinal">Total Final</label>
+       <a class="btn btn-info" id="btn-soma-item" title="somar total  "><i class="fa fa-plus" id="btn_total"></i>Calcula</a>
+      <input type="number" class="form-control" name="totalFinal"  id ="totalFinal"disabled="true">
+      <label for="valorPago">Valor Pago</label>
+      <input type="number" class="form-control" id="valorPago">
+      <label for="troco">Troco</label>
+      <input type="number" class="form-control" name="troco" disabled="true">    
+    </div>
+    <br><br>
+    <div class="row align-items-center">
+      <div class="col-md-10">
+      </div>
+      <div class="col-sm-1">
+        <a href="{% url 'core:listar_vendas' %}" class="btn btn-danger pull-right" title="Clique para cancelar a inclusão da nova venda e retornar a lista de vendas"><i class="fa fa-times"></i>Cancelar</a>
+      </div>
+      <div class="col-sm-1">
+        <button class="btn btn-primary pull-right" value="Save" title="Clique para salvar a nova venda"><i class="fa fa-floppy-o"></i> Salvar</button>
+      </div>
+    </div>
+  </form>
+  {% include 'core/venda/modal/modal_cliente.html' %}
+  {%url 'core:produto_modal' as produto_List %}
+  {% include "core/venda/modal/modal_produto.html"%}
+  {% include 'core/venda/modal/modal_forma_pag.html' %}
+  <script src="{% static 'js/core/venda/nova_venda.js' %}"></script>
+  <script type="text/html" id="item-order">
+    <div id="item-__prefix__" class="form-group" style="margin-top: 10px">
+      {{ formset.empty_form|bootstrap }}
+    </div>
+  </script>
+{% endblock %}  

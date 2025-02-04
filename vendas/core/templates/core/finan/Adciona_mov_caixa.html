@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}movimento de caixa: {{mov_caixa.id_mov_caixa}}{% endblock title %}
+{% block subtitle %}movimento de caixa: {{mov_caixa.id_mov_caixa}}{% endblock %}
+{% block numeroPagina %}0180-000{% endblock numeroPagina %}
+<form action="" method="POST" id="nomecliente">{% csrf_token %} 
+    <div id="form-inline-nova-venda" class="form-inline">
+      <legend class="lead">Movimento de caixa </legend>
+      <div class="container">
+{% endblock %}
